@@ -1,0 +1,117 @@
+body {
+  background: #1e1e28;
+  color: white; }
+
+svg {
+  min-width: 500px;
+  min-height: 500px;
+  border: 1px solid black;
+  background: rgba(220, 220, 255, 0.9);
+  background-color: rgba(220, 220, 255, 0.9);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.3) 2px, transparent 2px), linear-gradient(90deg, rgba(255, 255, 255, 0.3) 2px, transparent 2px), linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+  background-color: rgba(220, 220, 255, 0.9);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 2px, transparent 2px), -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0.3) 2px, transparent 2px), -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px), -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px; }
+
+.infobox {
+  display: table;
+  background: rgba(200, 200, 200, 0.7);
+  border: 1px rgba(120, 120, 120, 0.7) outset;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+  margin: auto;
+  padding: 25px; }
+  .infobox input {
+    border: 1px rgba(200, 200, 200, 0.7) inset; }
+  .infobox .ok {
+    color: green; }
+  .infobox #serverAddress {
+    color: red; }
+
+#brainstormingList .ui-selecting {
+  background: #FECA40; }
+
+#brainstormingList .ui-selected {
+  background: #F39814;
+  color: white; }
+
+#brainstormingList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+
+#brainstormingList li {
+  margin: 3px 0px;
+  height: 18px; }
+  #brainstormingList li input {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    /* For IE and modern versions of Chrome */
+    -moz-box-sizing: border-box;
+    /* For Firefox                          */
+    -webkit-box-sizing: border-box;
+    border-width: 0px;
+    position: relative;
+    top: -2px; }
+    #brainstormingList li input:active, #brainstormingList li input hover {
+      background: rgba(100, 0, 0, 0.3); }
+
+#brainstormingList li:hover {
+  background: #CACA40; }
+
+rect {
+  fill: white;
+  stroke-width: 3px;
+  pointer-events: all; }
+
+.node {
+  fill: rgba(0, 0, 0, 0.7); }
+
+.error {
+  display: table;
+  background: rgba(250, 20, 20, 0.7);
+  border: 1px rgba(220, 220, 20, 0.3) outset;
+  box-shadow: 2px 2px 3px rgba(250, 250, 100, 0.03), -2px -2px 3px rgba(250, 250, 100, 0.03);
+  margin: auto;
+  padding: 5px;
+  position: absolute;
+  top: 10px; }
+
+.cursor {
+  fill: none;
+  stroke: brown;
+  pointer-events: none; }
+
+.link {
+  stroke: #333;
+  z-index: 1;
+  stroke-width: 3; }
+
+text {
+  z-index: 10;
+  fill: black; }
+
+.background {
+  z-index: 0; }
+
+g {
+  fill: blue; }
+
+#tapetita {
+  position: absolute;
+  top: -100px; }
+
+.current rect {
+  stroke-width: 3;
+  stroke: rgba(226, 126, 0, 0.3); }
+
+.previous rect {
+  stroke-width: 2;
+  stroke: rgba(226, 226, 0, 0.3); }
+
+#query {
+  width: 500px;
+  height: 318px; }

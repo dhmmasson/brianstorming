@@ -1,0 +1,25 @@
+function checkAllSession() {
+    fs.readDir(__dirname+ "/server/logs/", function( err, files ) {
+	var sessionLogs = {}
+	, count = 0 ; 
+
+	if( err ) {
+	    console.log( "Something happened! " ) ; 
+	    console.log( err ) ; 
+	    return ; 
+	}
+
+	
+	for( var i in files ) {
+	    console.log( files[i] ) ; 
+	    sessionLogs[ files[i] ] = {} ;
+	    count ++ ; 
+	    
+	    fs.readDir( files[i], function() {
+		
+	    })
+ 	    
+	}
+    })
+
+}

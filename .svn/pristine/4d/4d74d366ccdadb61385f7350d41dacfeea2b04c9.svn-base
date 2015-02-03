@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Brainstorming Manager</title>
+
+<meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <link href="css/index.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <h1>Brainstormings</h1>
+    
+    
+    <address>
+      <a href="mailto:dimitri.masson@inrialpes.fr">Developed by Dimitri H. Masson</a>
+    </address>
+
+
+
+    <div id="infoBox" style="display:none" class="box"> 
+      
+      <button enable id="GoButton1" >Echauffement</button>
+      <button disabled id="Gobutton2" >Session</button>
+
+    </div>
+    
+    <script src="js/boot.js">    </script>
+     
+  </body>
+</html>
+
+

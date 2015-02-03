@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Brainstorming Manager</title>
+
+<meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <link href="css/index.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <h1>Brainstormings</h1>
+    
+    
+    <address>
+      <a href="mailto:dimitri.masson@inrialpes.fr">Developed by Dimitri H. Masson</a>
+    </address>
+
+
+
+    <div id="infoBox" style="display:none"> 
+      <label for="name">Nom </label><input id="name"></input><br/>
+   <!--    <label for="age"> Age </label><input id="age"></input><br/>
+      <label for="sex">Sexe</label>
+      <input type="radio" name="sex" value="H">Homme</input>
+      <span class="spacer"></span>
+      <input type="radio" name="sex" value="F">Femme</input><br/>
+      -->
+      <label for="serverAddress">Numéro de groupe </label><input id="serveurAddress"></input><br/>
+      <button disabled id="GoButton2" >Session</button>
+      <button disabled id="GoButton1" >Echauffement</button>
+
+    </div>
+    
+    <script src="js/boot.js">    </script>
+     
+  </body>
+</html>
+
+

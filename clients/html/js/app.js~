@@ -1,0 +1,76 @@
+var io = require('socket.io').listen(8888);
+function keys (o){
+   if (o !== Object(o))
+      throw new TypeError('Object.keys called on non-object');
+   var ret=[],p;
+   for(p in o) if(Object.prototype.hasOwnProperty.call(o,p)) ret.push(p);
+   return ret;
+}
+
+var brainstormingLogs = {} ; 
+io.sockets.on('connection', function (socket) {
+    //----CONNECTION-------------------------------------------------
+    console.log("new connection") ; 
+
+
+
+
+    //----LIST BRAINSTORMINGS---------------------------------------
+    socket.on("get_active_brainstormings", function () {
+	var aa = keys(io.sockets.manager.rooms).slice(1)  ; 
+	socket.emit("active_brainstormings", aa ) ;
+    })
+
+
+
+
+    //----JOIN BRAINSTORMING---------------------------------------
+    socket.on("join brainstorming", function (brainstormingName){
+	//Client is already in another brainstorming sessions
+	if (io.sockets.manager.roomClients[socket.id].length > 1) {
+	    var brainstormingName = keys(io.sockets.manager.roomClients[socket.id])[1].slice(1)  ; 
+	    socket.emit("error", "Please leave brainstorming " + aa + " before join a new brainstorming");
+	    return ; 
+	}
+	//Brainstorming sessions should have been created prior to joining
+	if (brainstormingLogs.hasOwnProperty(brainstormingName)) {
+	    socket.join (brainstormingName) ; 	
+	    socket.emit ("message", brainstormingLogs[brainstormingName] ) 
+	    return ; 
+	} else {
+	    socket.emit("error", "Please join existing brainstorming (get_active_brainstorming)");
+	    return ; 
+	}
+    })
+
+
+    //----CREATE NEW BRAINSTORMING---------------------------------
+    socket.on("create brainstorming", function (brainstormingName) {
+	if (brainstormingLogs.hasOwnProperty(brainstormingName)) {
+	    socket.emit("error", "Brainstorming "+ brainstormingName + " already existing") ;
+	} else {
+	    brainstormingLogs[brainstormingName] = [] ; 
+	    socket.join (brainstormingName) ; 	
+	}
+    })
+
+
+    //----DISPATCH MESSAGE IN THE ROOM-----------------------------
+    socket.on('message', function (data) {	
+	//user should be in one brainstorming
+	console.log(socket.id) ; 
+	console.log (io.sockets.manager.roomClients[socket.id])
+	if (keys(io.sockets.manager.roomClients[socket.id]).length > 1) {
+	    var brainstormingName = keys(io.sockets.manager.roomClients[socket.id])[1].slice(1)  ; 
+	    console.log(brainstormingName) ;
+	    socket.broadcast.in(brainstormingName).emit("message",data);
+	    return ; 
+	} else {
+	    socket.emit("error", "Please join existing brainstorming (get_active_brainstorming)");
+	}
+    });
+
+
+    //----DISCONNECT----------------------------------------------
+    socket.on('disconnect', function () { });
+});

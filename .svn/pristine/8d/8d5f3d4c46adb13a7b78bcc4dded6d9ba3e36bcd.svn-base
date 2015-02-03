@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Brainstorming Manager</title>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="/node_modules/node-web-repl/public/lib/jcubic-jquery.terminal/js/jquery.terminal-min.js"></script>
+    <link href="/node_modules/node-web-repl/public/lib/jcubic-jquery.terminal/css/jquery.terminal.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <h1>Brainstorming Manager</h1>
+    
+    
+    <address>
+      <a href="mailto:dimitri.masson@inrialpes.fr">Developed by Dimitri H. Masson</a>
+    </address>
+
+
+
+    <div id="infoBox" style="display:none"> 
+      <label for="name">Name: </label><input id="name"></input><br/>
+      <label for="serverAddress">Serveur Address: </label><input id="serveurAddress"></input><br/>
+      <button disabled id="GoButton" >GO</button>
+    </div>
+    
+    <div id="adminBox" style="display:none"> 
+      <label for="Title">Brainstorming Title : </label><input id="Title"></input><br/>
+      <label for="GroupId"> Group Id </label><input id="GroupId"></input><br/>
+      <button id="exp0"> Start control </button>
+      <button id="expA"> Start Experiment A </button>
+      <button id="expB"> Start Experiment B </button>
+      <button id="expC"> Start Experiment C </button>
+      <script src="js/boot.js">    </script>
+      <div id="term" class="terminal" style="height:200px"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,131 @@
+<html>
+<head>
+<title>BrainStorming User Interface</title>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/jquery-ui.min.js"></script>
+
+   <script type="text/javascript" src="js/d3.v3.min.js"></script>
+
+<link type="text/css" href="css/style.css" rel="stylesheet" />	
+
+<script src="js/ui.js"></script>
+
+<script>
+</script>
+
+</head>
+<body>
+
+<script type="text/javascript+protovis" >
+
+
+var w = document.body.clientWidth,
+h = document.body.clientHeight,
+colors = pv.Colors.category19();
+
+var vis ; 
+
+var session = 1 ; 
+session = (session)?session:0 ; 
+var serveur = "http://localhost:8800" ;
+var postit = {nodes : [], links : []} ;
+$.get(serveur+"/message", {sid:session}, function (data) {
+
+
+    var correspondance = {} ; 
+    var toBeDone = {} ; 
+    correspondance["0"] = postit.nodes.push ({nodeName : "0", nodeLabel : "origin"}) - 1 ; 
+    for (var i in data) {
+	correspondance[i] =  postit.nodes.push ( {nodeName : i, nodeLabel : data[i].versions[data[i].versions.length -1].content} ) - 1 ; 
+	toBeDone[i] = true ;  
+
+    }
+
+    for (var i in data) {
+	var links =  data[i].versions[data[i].versions.length -1].links ;
+
+	for (var j in links) {
+	    toBeDone [links[j].dst.split(".").splice(0,2).join(".")] = false ; 
+	    postit.links.push(  {source : correspondance[links[j].src.split(".").splice(0,2).join(".")],
+				 target : correspondance[links[j].dst.split(".").splice(0,2).join(".")], value:10} )
+	}
+    }
+
+
+
+    for (var i in toBeDone) {
+	if (toBeDone[i])
+	    postit.links.push ({source : correspondance["0"], target : correspondance[i], value : 1 })
+    }
+
+
+
+    vis = new pv.Panel()
+	.width(w)
+	.height(h)
+	.fillStyle("white")
+
+	.event("mousedown", pv.Behavior.pan())
+	.event("mousewheel", pv.Behavior.zoom());
+
+
+
+
+    console.log (correspondance) 
+    console.log (postit) ; 
+    force = vis.add(pv.Layout.Force)
+        .nodes(postit.nodes)
+        .links(postit.links);
+
+
+
+
+
+    force.link.add(pv.Line);
+
+
+
+    var a = 
+	force.node.add(pv.Dot)
+        .size(function(d) (d.nodeName.length + 10)* 10 * Math.pow(this.scale, -1.5))
+	.fillStyle(function(d) d.fix || false ? "transparent" : colors(d.group))
+	.strokeStyle(function() this.fillStyle().darker())
+	.lineWidth(0)
+	.tension(1)
+	.title(function(d) { d.nodeName})
+	.event("mousedown", pv.Behavior.drag())
+	.event("drag", force)
+	.anchor("center").add(pv.Label)
+	.textAlign("left")
+	.textBaseline("top")
+	.text(function(d) d.nodeValue);
+
+
+
+    force.label.add(pv.Label)
+	.textAlign("left")
+	.textBaseline("top")
+	.text(function(d) d.nodeLabel);
+
+
+    vis.render();
+
+})
+
+
+</script>
+
+<!-- <div id="toto"></div> -->
+<!-- <div class="card"> -->
+<!--   <input placeholder="Author" /> -->
+<!--   <textarea type="area" placeholder="Content" required></textarea> -->
+
+<!-- </div> -->
+
+
+
+</body>
+</html>

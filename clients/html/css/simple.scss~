@@ -1,0 +1,131 @@
+$headerHeight : 10em ; 
+$bottomHeight : 7em ; 
+html {
+  background :  hsl(240, 13%, 90%) ; 
+}
+.headerBox {
+
+    background : rgba(10,10,10,0.02255) ; 
+
+    position : absolute ; 
+    top : 0 ; 
+    left : 0px ;
+    right : 0px ; 
+    height : $headerHeight ; 
+
+    h1 {
+	display : table ; 
+	margin : 30px auto ; 
+    }
+
+    #progressBar {
+	height : 20px ; 
+	background : hsl(120, 33%, 60%) ; 
+
+
+	-webkit-background-clip: padding-box; /* for Safari */
+	background-clip: padding-box;
+	border : 1px inset rgba(10,10,10,0.2) ; 
+	width : 80% ; 
+	margin : 5px auto ; 
+	border-radius : 10px ;
+
+	span {
+	    width : 35% ; 
+	    border-radius : 10px ; 
+	    height : 100% ; 
+	    display : block ; 
+	    background : hsl(0, 63%, 60%) ;  
+
+
+	    -webkit-background-clip: padding-box; /* for Safari */
+	    background-clip: padding-box;
+	    border-right : 1px outset rgba(10,10,10,0.5) ; 
+	}
+    }
+}
+
+.ideasBoxContainer {
+    position : absolute ; 
+    top : $headerHeight + 0.2em ;  ; 
+    left : 0px ;
+    right : 0px ; 
+    bottom : $bottomHeight + 0.4em ; 
+
+    -webkit-column-count: 2 ; 
+    -moz-column-count: 2 ; 
+    column-count: 2 ; 
+
+    -webkit-column-gap: 0px ; 
+    -moz-column-gap: 0px ; 
+    column-gap: 0px ; 
+
+    -webkit-column-rule: 1px solid black ; 
+    -moz-column-rule: 1px solid black ; 
+    column-rule: 1px solid black ; 
+    
+    div {
+
+	padding : 0px 5px ; 
+
+	height : 100% ; 
+	height : calc( 100% - 0.1em ) ; 
+	overflow : auto ; 
+	background : rgba(255,255,255,0.3) ; 
+
+	position : relative ; 
+    }
+
+    #otherIdeas:after {
+	position: absolute ; 
+	content: "Autres idees" ;
+	border : 1px solid gray ; 
+	top : 0px ; 
+	right : 0px ; 
+	border: 1px solid black ; 
+	padding:2px ;
+    }
+   #myIdeas:after {
+	position: absolute ; 
+	content: "Mes idees" ;
+	border : 1px solid gray ; 
+	top : 0px ; 
+	right : 0px ; 
+	border: 1px solid black ; 
+	padding:2px ;
+    }
+
+    #otherIdeas {
+//	float: right ; 
+    }
+
+}
+
+
+#inputBox {
+
+
+    position : absolute ; 
+    
+    bottom : 0px ; 
+    left : 0px ;
+    right : 0px ; 
+    height : $bottomHeight ; 
+
+
+  
+padding : 5px ; 
+    * {
+	display: inline-block ; 
+	height : 100% ; 
+	vertical-align : bottom ; 
+
+    }
+
+    textarea {
+	width : calc( 100% - 150px - 5px ) ; 
+    }
+    button {
+	width :  150px   ; 
+    }
+}

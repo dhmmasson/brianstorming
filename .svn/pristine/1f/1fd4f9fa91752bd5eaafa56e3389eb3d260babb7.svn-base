@@ -1,0 +1,63 @@
+var version="0.1"
+
+
+
+
+
+var nodeStatic = require('node-static')
+, cp  = require('child_process')
+, fs = require('fs')
+, opt = require('node-getopt').create([
+      ['h', 'help'    , 'display this help and exit']
+    , ['V', 'version' , 'show version and exit']
+    , ['v', 'verbose' , 'print debug information']
+    , ['' , 'no_web'  , 'disable the built in web server. Useful if an existing webserver can be used to serve html files']
+    , ['p', 'port=PORT_NUMBER'    , 'Listening port for the manager, default to 8088']
+    , ['m', 'web_port=PORT_NUMBER'    , 'Listening port for the web interface, default to 8080']
+    , ['s', 'serveur_port=PORT_NUMBER'    , 'Listening port for the brainstorming serveur, default to 8888']
+    , ['C', 'configuration_file=FILE', 'Configuration file for the manager, the brains, and the user interfaces. Default : ./configuration.json']
+])              // create Getopt instance
+.bindHelp()     // bind option 'help' to default action
+.on("version", function() { //Bind version to expected behavior
+    console.log( "NodeManager_"+version+", Sept 25th 2013" ) ; 
+    process.exit(0) })
+.parseSystem(); // parse command line
+
+
+
+//Load configuration file SYNCHRONOUSLY because there is nothing to do without the configuration
+if( opt.options.verbose ) console.info( "load configuration files " + ( opt.options.configuration_file || "configuration.json" )) ; 
+var configurationFile = fs.readFileSync( opt.options.configuration_file || "configuration.json" ) ; 
+configuration= JSON.parse( configurationFile ) ; 
+//overide configuration files with command line options
+for( var i in opt.options ) {
+    if( opt.options[i] ) 
+	configuration[i] = opt.options[i] ; 
+}
+
+
+if( !configuration.no_web ) {
+    startWebServer( configuration.web_port ) ;  
+}
+
+//startBrainServer( configuration.serveur_port ) ; 
+
+
+
+
+//Create a minimal webserver to serve html interfaces.
+function startWebServer( port ) {
+    if( configuration.verbose ) console.info( "Start web server on port : " + port ) ; 
+    var file = new nodeStatic.Server();
+    require('http').createServer( function( request, response ) {
+	request.addListener( 'end', function() {
+	    file.serve( request, response );
+	}).resume();
+    }).listen( port );
+}
+
+//Create childprocess for the brainserver 
+function startBrainServer( port ) {
+    var server = cp.fork(__dirname + '/server/app.js ');
+
+}

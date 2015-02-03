@@ -1,0 +1,248 @@
+$headerHeight : 7em ; 
+$bottomHeight : 2em ; 
+$selfColor :  hsl(120, 100%, 30%);
+$selfBg : rgba(0,0,0,0);
+html {
+  background :  hsl(240, 13%, 90%) ; 
+}
+.headerBox {
+
+    background : hsla(240,10%,70%,1) ;
+    color : rgb(40,40,40) ;
+    text-shadow : -1px 1px 2px lightgray ; 
+    box-shadow : -2px 2px 5px lightgray ; 
+    border-bottom : 1px outset rgba(200,200,200,0.2) ; 
+
+
+    position : absolute ; 
+    top : 0 ; 
+    left : 0px ;
+    right : 0px ; 
+    height : $headerHeight ; 
+
+
+
+    h1 {
+	display : table ; 
+	margin : 10px auto ; 
+    }
+
+    #progressBar {
+	height : 20px ; 
+	background : hsl(120, 33%, 60%) ; 
+
+
+	-webkit-background-clip: padding-box; /* for Safari */
+	background-clip: padding-box;
+	border : 1px inset rgba(10,10,10,0.2) ; 
+	width : 80% ; 
+	margin : 5px auto ; 
+	border-radius : 10px ;
+	position : relative ; 
+
+	#progress {
+	    width : 35% ; 
+	    border-radius : 10px ; 
+	    height : 100% ; 
+	    display : block ; 
+	    background : hsl(0, 63%, 60%) ;  
+
+
+	    -webkit-background-clip: padding-box; /* for Safari */
+	    background-clip: padding-box;
+	    border-right : 1px outset rgba(10,10,10,0.5) ; 
+	}
+
+	.mark {
+	    position : absolute ;
+	    top : 0 ; 
+	    bottom : 0 ; 
+	    width : 1px ;
+	    background : purple ; 
+	}
+    }
+}
+
+.ideasBoxContainer {
+    position : absolute ; 
+    top : $headerHeight + 0.2em ;  ; 
+    left : 0px ;
+    right : 0px ; 
+    bottom : $bottomHeight + 0.4em ; 
+
+    -webkit-column-count: 4 ; 
+    -moz-column-count: 4 ; 
+    column-count: 4 ; 
+
+    -webkit-column-gap: 2px ; 
+    -moz-column-gap: 2px ; 
+    column-gap: 2px ; 
+
+    -webkit-column-rule: 1px solid rgba(0,0,0,0.2) ; 
+    -moz-column-rule: 1px solid rgba(0,0,0,0.2) ; 
+    column-rule: 1px solid rgba(0,0,0,0.2) ; 
+    
+
+    div {
+
+	padding : 10px 5px -10px 5px  ; 
+
+	height : 100% ; 
+	height : calc( 100% - 0.1em ) ; 
+	height : -webkit-calc( 100% - 0.1em ) ; 
+	overflow : auto ; 
+	background : rgba(255,255,255,0.3) ; 
+
+	position : relative ; 
+    }
+    p{
+	margin : 0.2em ;
+    }
+
+    #myIdeas {
+	background : rgba(235,255,235,0.3) ; 
+	border-right : 1px solid black ; 
+    }
+
+    #otherIdeas {
+//	float: right ; 
+    }
+
+    .brain {
+//	color : red ; 	
+    }
+    .Self {
+	color : $selfColor ;
+	background : $selfBg ; 
+	&:before {
+	    content : "Moi : "
+	}
+    }
+
+}
+
+
+#inputBox {
+
+
+    position : absolute ; 
+    
+    bottom : 0px ; 
+    left : 0px ;
+    right : 0px ; 
+    height : $bottomHeight ; 
+
+
+  
+padding : 5px ; 
+    * {
+	display: inline-block ; 
+	height : 100% ; 
+	vertical-align : bottom ; 
+
+    }
+
+    textarea {
+    width : 900px ;
+	width : calc( 100% - 150px - 5px ) ; 
+	width : -webkit-calc( 100% - 150px - 5px ) ; 
+	color : $selfColor ; 
+	background-color : $selfBg ; 
+
+    }
+    button {
+	width :  150px   ; 
+    }
+
+}
+
+.best {
+    background : rgba(200,200,100,0.2) !important ;  
+
+}
+.mostInspiring {
+    background :  rgba(200,200,100,0.2) !important ;  
+
+}
+.mostSurprising {
+    background :  rgba(200,200,100,0.2) !important ;  
+
+}
+.mostUtile{
+    background :  rgba(200,200,100,0.2) !important ;  
+
+}
+
+.message {
+
+    background : hsla(240,10%,70%,0.99) ;
+    color : rgb(40,40,40) ;
+//    text-shadow : -1px 1px 2px lightgray ; 
+    box-shadow : -2px 2px 5px darkgray ; 
+    border : 1px outset rgba(200,200,200,0.4) ; 
+    padding : 5px ; 
+    position : absolute ; 
+    display : table ; 
+    width : -webkit-calc( 45% ) ;
+    left : -webkit-calc( 50% - ( 45% ) /2 ) ;
+    text-align : justify ; 
+
+//    -webkit-transition : top 10s ; 
+	
+    &.active {
+	top : -webkit-calc( 15% - 5px ) ;
+
+    }
+    &.inactive {
+	top : -webkit-calc( 5% - 5px ) ;
+	*:not(h1) {
+	    display : none ; 
+	}
+	h1:after {
+	    content: "(...)" ;
+	    font-size : 0.5em ; 
+	    color : blue ; 
+	    text-decoration : underline ; 
+	}
+    }
+ 
+    li {
+	background : hsla(0,0, 50%, 0.1 ) ; 
+	box-shadow : -1px 1px 2px darkgray ;
+	border : 1px inset rgba(200,200,200,0.4) ;  
+	margin : 2px ; 
+	p { margin : 0px }
+    }
+    h1{
+	color : rgb(40,40,40) ;
+	text-shadow : -1px 1px 2px lightgray ; 	
+    }
+    button {
+	display : block ; 
+	margin : 0px ; 
+	width : 33% ; 
+	margin-left : 67% ; 
+	height : 28px ; 
+    }
+   
+}
+
+
+ul.likert {
+    list-style-type: none;
+    display : table;
+    padding: 0;
+    border : 1px solid black;
+    margin : 5px auto;
+}
+.likert label {
+    margin : 1em ; 
+}
+.likert li {
+    // float: left;
+    border : none;
+    display : inline;
+    text-align: left;
+    list-style-type: none;
+    margin : 1em;
+}

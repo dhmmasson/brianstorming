@@ -1,0 +1,10 @@
+
+$,resize(
+function( ) {
+
+    otherIdea.css( "height" , (container.css("height").slice(0,-2) * 3) + "px" ) 
+    myIdea.css( "height" , container.css("height") ) 
+    
+}
+
+) 

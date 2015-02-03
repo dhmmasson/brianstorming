@@ -1,0 +1,10 @@
+$(init) ;
+
+function init () {
+    
+    $("#query").val(localStorage["query"])
+
+    $("#sendQuery").click() ; 
+
+
+}

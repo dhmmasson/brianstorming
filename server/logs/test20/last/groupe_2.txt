@@ -1,0 +1,1 @@
+{"nodes":[],"links":[],"users":{"100470":{"username":"Brain:Dennis","sentencesCount":0,"wordsCount":0,"info":{"id":"100470"}}},"groupeId":"2","theme":"session","title":"Improving Students Quality of Life on Campus","type":"Brain:DennisVisible","initT":1413578689675,"deltaT":900,"sentencesCount":0,"wordsCount":0,"active":true}

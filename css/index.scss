@@ -1,0 +1,95 @@
+body {
+    margin : 0px ; 
+}
+
+h1, h2,h3 {
+  color : rgb(40,40,40) ;
+    text-shadow : -1px 1px 2px lightgray ; 
+ 
+}
+
+h1 {
+    background : lightgray ; 
+    background : hsla(240,10%,70%,1) ;
+
+     padding : 20px ; 
+    margin : 0px ; 
+    box-shadow : -2px 2px 5px lightgray ; 
+    border-bottom : 1px outset rgba(200,200,200,0.2) ; 
+
+}
+address {
+	text-align : right ; 
+}
+
+.question {
+    * {
+  //  padding : 5px 10px ;
+    font-size : 1.5em ; 
+
+  
+}
+ label {
+	margin : 5px ;
+ }	
+div.right {
+    background : hsla( 0, 0, 100%, 0.2 ) ;
+    box-shadow : 2px -2px 1px  hsla( 0, 0, 0, 0.1 ) ;
+    border : 1px inset  hsla( 0, 0, 0, 0.2 ) ;
+    width : 540px ; 
+    font-size : 0.8em ;
+    display    : inline-block ; 
+}
+}
+
+.box {
+
+    width : 900px ; 
+    background : hsla(240,10%,70%,1) ;
+    box-shadow : -2px 2px 5px lightgray ; 
+    border : 1px outset rgba(200,200,200,0.2) ; 
+    border-radius : 3px ; 
+    margin : 50px auto ; 
+    padding : 30px ; 
+
+
+    
+    label  {
+	display : inline-block  ; 
+	width : 300px ; 
+	text-align : right ; 
+    }
+    input:not([type="radio"]) {
+	width : 540px ; 
+    }
+    .spacer {
+	display: inline-block ; 
+	width : 300px
+    }
+    button {
+//	float : right ;  
+    }
+
+}
+
+.right {
+    display : inline-block ; 
+//    float : right ;  
+	clear : both ; 
+}
+
+p {
+    text-align : right ; 
+	font-size : 1.5em ; 
+    * {
+	font-size : inherit ; 
+	margin : 0px ; 
+    }
+}
+textarea{
+    width : 100% ; 
+    height : 500px ; 
+}
+li:not(:last-child)  {
+    margin-bottom : 10px ; 
+}

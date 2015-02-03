@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>Brainstorming Manager</title>
+
+<meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <link href="css/index.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <h1>Brainstormings</h1>
+    
+    
+    <address>
+      <a href="mailto:dimitri.masson@inrialpes.fr">Developed by Dimitri H. Masson</a>
+    </address>
+
+
+
+    <div id="infoBox" style="display:none" class="box"> 
+      <label for="name">Nom </label><input id="name"></input><br/>
+      <label for="age"> Age </label><input id="age"></input><br/>
+      <label for="sex">Sexe</label>
+      <input type="radio" name="sex" value="H">Homme</input>
+      <span class="spacer"></span>
+      <input type="radio" name="sex" value="F">Femme</input><br/>
+      <label>
+      sur une échelle de 1-10 comment évalueriez vous votre créativité ?
+      </label> <br/>
+      <div class="right">
+	<input type="radio" name="creativityRating" value="1">1 (Pas créatif du tout) </input>
+	<input type="radio" name="creativityRating" value="2">2</input>
+	<input type="radio" name="creativityRating" value="3">3</input>
+	<input type="radio" name="creativityRating" value="4">4</input>
+	<input type="radio" name="creativityRating" value="5">5</input>
+	<input type="radio" name="creativityRating" value="6">6</input>
+	<input type="radio" name="creativityRating" value="7">7</input>
+	<input type="radio" name="creativityRating" value="8">8</input>
+	<input type="radio" name="creativityRating" value="9">9</input>
+	<input type="radio" name="creativityRating" value="10">10 (Très créatif) </input>
+      </div>
+      <br>
+
+      <label for="creativityGeniuses">Sur cette échelle qui selon vous aurait un score de 10 (un ou plusieurs nom possibles) ? </label>
+      <input id="creativityGeniuses"></input><br/>
+
+      <label for="creativeActivity">Dans quelles activités vous sentez vous le plus créatif ?</label>
+      <input id="name"></input><br/>
+
+
+      <label for="unCreativeActivity">Dans quelles activités vous sentez vous le moins créatif ? </label>
+      <input id="unCreativeActivity"></input><br/>
+      
+      <label>
+	Avez-vous déjà participé à un brainstorming ?</label>
+      <input type="radio" name="brainstormingParticipation" value="0">Jamais</input>
+      <input type="radio" name="brainstormingParticipation" value="1">Une fois</input>
+      <input type="radio" name="brainstormingParticipation" value="2">Plusieurs fois</input>      
+      <input type="radio" name="brainstormingParticipation" value="3">Régulièrement</input>      
+	
+
+      <label for="serverAddress">Numéro de groupe </label><input id="serveurAddress"></input><br/>
+
+      <button disabled id="GoButton1" >Suite</button>
+
+    </div>
+    
+    <script src="js/boot.js">    </script>
+     
+  </body>
+</html>
+
+

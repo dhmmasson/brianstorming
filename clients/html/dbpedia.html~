@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>BrainStorming User Interface</title>
+<meta name="viewport" content="width=device-width,initial-scale=0.6,user-scalable=yes" />
+<link type="text/css" href="css/style.css" rel="stylesheet" />	
+<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/base/jquery-ui.css" rel="stylesheet" />	
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/d3.v3.min.js"></script>
+
+<script src="js/socket.io.min.js"></script>
+<script src="js/fastclick.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/ui3.js"></script>
+<script>
+</script>
+
+</head>
+<body>
+<input id="tapetita"> </input>
+
+<!-- <div id="toto"></div> -->
+<!-- <div class="card"> -->
+<!--   <input placeholder="Author" /> -->
+<!--   <textarea type="area" placeholder="Content" required></textarea> -->
+
+<!-- </div> -->
+
+<div class="infobox">
+  <label for="name">Name: </label><input id="name"></input><br/>
+  <label for="serverAddress">Serveur Address: </label><input id="serveurAddress"></input><br/>
+
+<div>
+</body>
+</html>

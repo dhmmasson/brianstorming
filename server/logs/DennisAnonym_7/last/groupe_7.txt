@@ -1,0 +1,1 @@
+{"nodes":[{"metaData":{"color":"red","timestamp":1383057821183,"authors":"Anonymous","Authors":"brainManager"},"content":"7 true session B","id":"80303.1"}],"links":[],"users":[],"title":"7 true session B","theme":"groupe_7.txt","type":"DennisAnonym","sentencesCount":0,"wordsCount":0,"initT":1383057821183}
