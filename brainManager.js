@@ -46,7 +46,7 @@ if( !configuration.no_web ) {
     startWebServer( process.env.PORT ||  configuration.web_port ) ;  
 }
 
-fs.writeFile( __dirname + "/public/server/activeServers" , "" ) ; 
+fs.writeFile( __dirname + "/server/activeServers" , "" ) ; 
 
 //startBrainServer( configuration.serveur_port ) ; 
 
@@ -55,9 +55,9 @@ process.on('exit', function() {
 
 
     //Stop brainstormings servers and brains
-    data = fs.readFileSync( __dirname + "/public/server/activeServers" ) ;
+    data = fs.readFileSync( __dirname + "/server/activeServers" ) ;
     console.log( data ) ; 
-    fs.writeFileSync( __dirname + "/public/server/activeServers" , "" ) ; 
+    fs.writeFileSync( __dirname + "/server/activeServers" , "" ) ; 
 });
 process.on("uncaughtException", function( err ) {
     console.error( err ) ; 
@@ -120,9 +120,9 @@ function startBrainAssistant( name, server ) {
 }
 
 function createBrainstorming( directory, type, groupId, title, theme, sandbox ) {
-    if(! fs.existsSync(  __dirname + "/public/server/logs/" + directory + "/last/" ) ) {
-	fs.mkdirSync( __dirname + "/public/server/logs/" + directory ) ;  
-	fs.mkdirSync( __dirname + "/public/server/logs/" + directory + "/last/" ) ;
+    if(! fs.existsSync(  __dirname + "/server/logs/" + directory + "/last/" ) ) {
+	fs.mkdirSync( __dirname + "/server/logs/" + directory ) ;  
+	fs.mkdirSync( __dirname + "/server/logs/" + directory + "/last/" ) ;
     }
 
 
@@ -134,7 +134,7 @@ function createBrainstorming( directory, type, groupId, title, theme, sandbox ) 
     }
 
 
-    fs.writeFileSync( __dirname + "/public/server/logs/" + directory + "/last/"+ filename ,
+    fs.writeFileSync( __dirname + "/server/logs/" + directory + "/last/"+ filename ,
 		      JSON.stringify({ nodes : [ new Node( title, {Authors : "brainManager"}  ) ]
 				       , links: []
 				       , users: [] 
@@ -153,7 +153,7 @@ function createBrainstorming( directory, type, groupId, title, theme, sandbox ) 
 
 
 function checkAllSession() {
-    fs.readDir(__dirname+ "/public/server/logs/", function( err, files ) {
+    fs.readDir(__dirname+ "/server/logs/", function( err, files ) {
 	var sessionLogs = {}
 	, count = 0 ; 
 
