@@ -1,9 +1,5 @@
 var version="0.1"
 
-
-
-
-
 var nodeStatic = require('node-static')
 , cp  = require('child_process')
 , fs = require('fs')
@@ -38,7 +34,7 @@ for( var i in opt.options ) {
 
 global.start = start ; 
 
-webrepl.createServer({port: configuration.port
+webrepl.createServer({port: (process.env.PORT || configuration.port)
 		      , username: configuration.username
 		      , password: configuration.password
 		     });
@@ -97,9 +93,9 @@ function startWebServer( port ) {
     if( configuration.verbose ) console.info( "Start web server on port : " + port ) ; 
     var file = new nodeStatic.Server();
     require('http').createServer( function( request, response ) {
-	request.addListener( 'end', function() {
-	    file.serve( request, response );
-	}).resume();
+    	request.addListener( 'end', function() {
+    	    file.serve( request, response );
+    	}).resume();
     }).listen( port );
 }
 
@@ -112,8 +108,7 @@ function startBrainServer( directory, port ) {
     })
     
     server.on("start", function (name) {
-	console.log("Manager here : Server is started") ; 
-	
+	   console.log("Manager here : Server is started") ; 	
     })
 }
 
