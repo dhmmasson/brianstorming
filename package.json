@@ -1,27 +1,40 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.1.2",
-  "description": "",
+  "name": "brianstorming",
+  "version": "0.0.0",
+  "description": "Brainstorming framework with artificial brain",
   "main": "brainManager.js",
-  "scripts": {
-    "start": "node brainManager.js"
+  "directories": {
+    "test": "test"
   },
   "dependencies": {
-    "node-static": "~0.7.x"
-    , "node-web-repl": "~0.0.x"
-    , "node-getopt": "~0.2.x"
+    "WNdb": "~3.0.1",
+    "colors": "~0.6.2",
+    "natural": "~0.1.21",
+    "node-getopt": "~0.2.3",
+    "node-static": "~0.7.1",
+    "node-web-repl": "~0.0.5",
+    "pos": "~0.1.2",
+    "prototype": "~0.0.5",
+    "sleep": "~1.1.1",
+    "socket.io": "~0.9.16",
+    "socket.io-client": "~0.9.16",
+    "socket.io-stream": "~0.5.3"
   },
-  "engines": {
-    "node": "0.10.x"
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/dhmmasson/brianstorming.git"
   },
   "keywords": [
-    "node",
-    "heroku",
-    "express"
+    "brainstorming",
+    "brian",
+    "node"
   ],
-  "license": "MIT"
+  "author": "DHM",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "432c35681873b60cd8d660f92e716fe4f89d3866"
 }
