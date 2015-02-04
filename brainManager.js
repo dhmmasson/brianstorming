@@ -91,6 +91,7 @@ function Node (content, metaData) {
 
 //Create a minimal webserver to serve html interfaces.
 function startWebServer( port ) {
+    
     if( configuration.verbose ) console.info( "Start web server on port : " + port ) ; 
     var file = new nodeStatic.Server();
     require('http').createServer( function( request, response ) {
