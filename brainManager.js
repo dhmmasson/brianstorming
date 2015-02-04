@@ -1,6 +1,7 @@
 var version="0.1"
 
 var nodeStatic = require('node-static')
+, coffer = require('coffee-script')
 , cp  = require('child_process')
 , fs = require('fs')
 , webrepl = require('node-web-repl')
