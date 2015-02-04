@@ -35,7 +35,7 @@ for( var i in opt.options ) {
 
 global.start = start ; 
 
-webrepl.createServer({port: (process.env.PORT || configuration.port)
+webrepl.createServer({port: (configuration.port)
 		      , username: configuration.username
 		      , password: configuration.password
 		     });
@@ -43,7 +43,7 @@ webrepl.createServer({port: (process.env.PORT || configuration.port)
 console.log( "Welcome on board" ) ; 
 
 if( !configuration.no_web ) {
-    startWebServer( configuration.web_port ) ;  
+    startWebServer( process.env.PORT ||  configuration.web_port ) ;  
 }
 
 fs.writeFile( __dirname + "/public/server/activeServers" , "" ) ; 
@@ -91,7 +91,7 @@ function Node (content, metaData) {
 
 //Create a minimal webserver to serve html interfaces.
 function startWebServer( port ) {
-    
+
     if( configuration.verbose ) console.info( "Start web server on port : " + port ) ; 
     var file = new nodeStatic.Server();
     require('http').createServer( function( request, response ) {
