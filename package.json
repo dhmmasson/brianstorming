@@ -18,7 +18,8 @@
     "sleep": "~1.1.1",
     "socket.io": "~0.9.16",
     "socket.io-client": "~0.9.16",
-    "socket.io-stream": "~0.5.3"
+    "socket.io-stream": "~0.5.3",
+    "coffee-script": "~1.6.x"
   },
   "devDependencies": {},
   "scripts": {
