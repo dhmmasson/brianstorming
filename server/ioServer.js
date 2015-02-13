@@ -3,20 +3,7 @@
 
 	var fs = require('fs')
 	, cp  = require('child_process')
-	 , opt = require('node-getopt').create([
-	       ['h', 'help'    , 'display this help and exit']
-	     , ['V', 'version' , 'show version and exit']
-	     , ['v', 'verbose' , 'print debug information']
-	     , ['p', 'port=PORT_NUMBER'    , 'Listening port, default to 8888']
-	     , ['L', 'logs=DIRECTORY', 'Directory to saves the brainstorming']
-	     , ['' , 'managed' , 'The server has been launch from the brainManager as opposed to a standalone']
-	])              // create Getopt instance
-	.bindHelp()     // bind option 'help' to default action
-	.on("version", function() { //Bind version to expected behavior
-	    console.log( "NodeManager_"+version+", Oct 3rd 2013" ) ; 
-	    process.exit(0) })
-	.parseSystem(); // parse command line
-
+	
 	util = { inspect : function ( obj ) {
 		if( !obj ) return "undefined"
 		if (typeof obj.inspect == "function" ) return obj.inspect() ; 
@@ -24,6 +11,10 @@
 		return obj ; 
 	    }} 
 
+    opt.options = {
+    	verbose : false
+    	, logs = "logs/logs.json"
+    }
 	if( opt.options.verbose ) ; 
 
 	var logsPath = opt.options.logs || "" ; 
@@ -40,16 +31,10 @@
 	var pathLast   = __dirname + "/logs/"+logsPath+"last/" ;
 	var pathStatus = __dirname + "/logs/"+logsPath+"status.json" ;
 
-	var port =  ~~( opt.options.port )  || 8888 ; 
-	var io = require('socket.io').listen( port ,  { log: false });
+	fs.appendFile( __dirname + "/activeServers" , opt.options.port + "\n") ; 
+
 
 	var hasChanged = true ; 
-	console.log( "NodeManager_"+version+", Sept 25th 2013" ) ; 
-	console.log( "Server started on port " +  opt.options.port ) ; 
-
-
-
-	fs.appendFile( __dirname + "/activeServers" , opt.options.port + "\n") ; 
 
 
 	function keys (o){
@@ -82,11 +67,11 @@
 	    i = 0 ; 
 	    for( var name in logs ) {
 		result[i] = {} ; 
-		for( var j in logs[name] ) {
-		    if( (j == "nodes") || (j == "links") ) continue ; 
-			result[i][j] = logs[name][j] ; 
-		}
-		i++ ; 
+			for( var j in logs[name] ) {
+			    if( (j == "nodes") || (j == "links") ) continue ; 
+				result[i][j] = logs[name][j] ; 
+			}
+			i++ ; 
 	    }
 	    fs.writeFile( pathStatus, JSON.stringify( result )
 			 , function (err) {
@@ -160,17 +145,14 @@
 
 
 	loadLogs() ; 
-	if( opt.options.managed ) {
-	    
-	    
-	}
-	    setInterval( maintenance, 10000 ) ; 
+	setInterval( maintenance, 10000 ) ; 
 
 	io.sockets.on('connection', function (socket) {
 	    //----CONNECTION-------------------------------------------------
 	    if( opt.options.verbose ) {
-		var address = socket.handshake.address;
-		console.log("New connection from " + address.address + ":" + address.port);
+			var address = socket.handshake.address;
+			console.log( util.inspect(socket.handshake) ) ; 
+			console.log("New connection from " + address.address + ":" + address.port);
 	    }
 
 
