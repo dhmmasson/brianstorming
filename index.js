@@ -3,9 +3,6 @@ var app = express();
 
 var server = require('http').Server(app);
 var passport = require('passport');
-
-
-
 // This is the file we created in step 2.
 // This will configure Passport to use Auth0
 var strategy = require('./strategy.js');
@@ -13,7 +10,6 @@ var strategy = require('./strategy.js');
 // Session and cookies middlewares to keep user logged in
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-
 var io               = require("socket.io")(server),
     passportSocketIo = require("passport.socketio");
 
@@ -25,8 +21,6 @@ var api = new Auth0({
     clientID: process.env['AUTH0_CLIENT_ID'],
     clientSecret: process.env['AUTH0_CLIENT_SECRET']
 });
-
-     
 var pg = require('pg')
   , pgSession = require('connect-pg-simple')(session);
  
@@ -118,9 +112,6 @@ function onAuthorizeFail(data, message, error, accept){
     accept(new Error(message));
   // this error will be sent to the user as a special error-package
   // see: http://socket.io/docs/client-api/#socket > error-object
-
-
-
 }
 
 	
