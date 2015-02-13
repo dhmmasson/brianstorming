@@ -24,6 +24,7 @@
     "passport": "~0.2.1",
     "passport-auth0": "~0.2.1",
     "passport.socketio": "^3.4.1",
+    "pg": "^4.2.0",
     "pos": "~0.1.2",
     "prototype": "~0.0.5",
     "sleep": "~1.1.1",
