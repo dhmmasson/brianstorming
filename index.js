@@ -64,7 +64,6 @@ app.get('/callback',
   });
 
 app.get('/test.html', function (req, res) {
-	console.log( req.user )
   res.render('pages/test.ejs', {
     user: req.user, //use this to display user information
     env: process.env
