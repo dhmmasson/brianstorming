@@ -25,10 +25,7 @@ function clientBrainstorming( address_optional ) {
 	clog( "Attempting to connect to " + this.address ) 
 	//Create Socket
 	try {
-		io.configure(function () {
-	  		io.set("transports", ["xhr-polling"]);
-	  		io.set("polling duration", 10);
-		});
+
 	this.socket = io.connect( this.address ) ;
 	} catch (err) {
 	    clog( "Client can't connect to " + this.address ) ; 
