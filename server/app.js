@@ -1,21 +1,11 @@
-(function( io ){
+var export1 = { 
+
+	server : function( io ){
 	var version = "0.3" ;
 
 	var fs = require('fs')
-	, cp  = require('child_process')
-	 , opt = require('node-getopt').create([
-	       ['h', 'help'    , 'display this help and exit']
-	     , ['V', 'version' , 'show version and exit']
-	     , ['v', 'verbose' , 'print debug information']
-	     , ['p', 'port=PORT_NUMBER'    , 'Listening port, default to 8888']
-	     , ['L', 'logs=DIRECTORY', 'Directory to saves the brainstorming']
-	     , ['' , 'managed' , 'The server has been launch from the brainManager as opposed to a standalone']
-	])              // create Getopt instance
-	.bindHelp()     // bind option 'help' to default action
-	.on("version", function() { //Bind version to expected behavior
-	    console.log( "NodeManager_"+version+", Oct 3rd 2013" ) ; 
-	    process.exit(0) })
-	.parseSystem(); // parse command line
+	, cp  = require('child_process') ;
+	opt = { options : {verbose : true , logs:"dir" }}
 
 	util = { inspect : function ( obj ) {
 		if( !obj ) return "undefined"
@@ -41,7 +31,7 @@
 	var pathStatus = __dirname + "/logs/"+logsPath+"status.json" ;
 
 	var port =  ~~( opt.options.port )  || 8888 ; 
-	var io = require('socket.io').listen( port ,  { log: false });
+	//var io = require('socket.io').listen( port ,  { log: false });
 
 	var hasChanged = true ; 
 	console.log( "NodeManager_"+version+", Sept 25th 2013" ) ; 
@@ -78,83 +68,83 @@
 
 
 	function status ( socket ) {
-	    var result = [],
-	    i = 0 ; 
-	    for( var name in logs ) {
-		result[i] = {} ; 
-		for( var j in logs[name] ) {
-		    if( (j == "nodes") || (j == "links") ) continue ; 
-			result[i][j] = logs[name][j] ; 
-		}
-		i++ ; 
-	    }
-	    fs.writeFile( pathStatus, JSON.stringify( result )
-			 , function (err) {
-			     if (err) throw err;
-			 //    console.log('status saved!');
-			 });  
-	    io.sockets.emit("status", result) ; 
-	    return result ; 
+	 //    var result = [],
+	 //    i = 0 ; 
+	 //    for( var name in logs ) {
+		// result[i] = {} ; 
+		// for( var j in logs[name] ) {
+		//     if( (j == "nodes") || (j == "links") ) continue ; 
+		// 	result[i][j] = logs[name][j] ; 
+		// }
+		// i++ ; 
+	 //    }
+	 //    fs.writeFile( pathStatus, JSON.stringify( result )
+		// 	 , function (err) {
+		// 	     if (err) throw err;
+		// 	 //    console.log('status saved!');
+		// 	 });  
+	 //    io.sockets.emit("status", result) ; 
+	 //    return result ; 
 	}
 
 
 	function saveLogs () {
-	    var t = (new Date()).getTime()
-	    var pathBackUp =  __dirname +  "/logs/"+logsPath+""+t  ;
-	//    fs.mkdirSync(pathBackUp) ;
-	    pathBackUp+="/" ;
-	    for (var i in logs) {
+	//     var t = (new Date()).getTime()
+	//     var pathBackUp =  __dirname +  "/logs/"+logsPath+""+t  ;
+	// //    fs.mkdirSync(pathBackUp) ;
+	//     pathBackUp+="/" ;
+	//     for (var i in logs) {
 		
-		var data = JSON.stringify(logs[i]) ;
+	// 	var data = JSON.stringify(logs[i]) ;
 		
-	//	fs.writeFile(pathBackUp+i, data) ;
+	// //	fs.writeFile(pathBackUp+i, data) ;
 		
-		fs.writeFileSync(pathLast+i, data) ;
-	    }
+	// 	fs.writeFileSync(pathLast+i, data) ;
+	//     }
 	}
 
 	function loadLogs () {
-	    function loadFiles() {
-		return function (err, files) {
+	 //    function loadFiles() {
+		// return function (err, files) {
 		
-		    if (err) { 
-			console.warn("first call, no logs to read") ; 
-			try {
-			    fs.mkdirSync(pathLast) ;
-			} catch ( err ) {
-			    console.log( "dir last/ already exists" ) ; 
-			}
-		    }
-		    for (var i in files) {
+		//     if (err) { 
+		// 	console.warn("first call, no logs to read") ; 
+		// 	try {
+		// 	    fs.mkdirSync(pathLast) ;
+		// 	} catch ( err ) {
+		// 	    console.log( "dir last/ already exists" ) ; 
+		// 	}
+		//     }
+		//     for (var i in files) {
 		
-			console.log(files[i]) ;
-			if (files[i] ==".svn")continue ; 
-			if (files[i] ==".DS_Store")continue ; 
-			logs[files[i]] = "" ;
+		// 	console.log(files[i]) ;
+		// 	if (files[i] ==".svn")continue ; 
+		// 	if (files[i] ==".DS_Store")continue ; 
+		// 	logs[files[i]] = "" ;
 
-			function readFile (err, data) {
-			    file = this ; 
-			    if (err) throw err;
-			    console.log( "read " + data.length + " bytes from " + file  ) ; 
-			    logs[file] = JSON.parse(data);
-			    if( opt.options.verbose ) console.log(logs[file]) ;
+		// 	function readFile (err, data) {
+		// 	    file = this ; 
+		// 	    if (err) throw err;
+		// 	    console.log( "read " + data.length + " bytes from " + file  ) ; 
+		// 	    logs[file] = JSON.parse(data);
+		// 	    if( opt.options.verbose ) console.log(logs[file]) ;
 			    
-			    if( opt.options.verbose ) console.log(logs[file].nodes) ;
-			    console.log("Create a " + logs[file].type +" brainstorming " ) ;
-			    if(logs[file].type.match("Brain:") ) {
-				setTimeout( 
-				    function () { cp.fork("clients/brains/Dennis.js", ["--port="+opt.options.port, "--session="+ this ] ) ; }.bind(file)
-				    , 3000 ) 
+		// 	    if( opt.options.verbose ) console.log(logs[file].nodes) ;
+		// 	    console.log("Create a " + logs[file].type +" brainstorming " ) ;
+		// 	    if(logs[file].type.match("Brain:") ) {
+		// 		setTimeout( 
+		// 		    function () { cp.fork("clients/brains/Dennis.js", ["--port="+opt.options.port, "--session="+ this ] ) ; }.bind(file)
+		// 		    , 3000 ) 
 
-			    }
-			}
+		// 	    }
+		// 	}
 
-			fs.readFile(pathLast+files[i], readFile.bind( files[i] )  ) ;
-		    }
+		// 	fs.readFile(pathLast+files[i], readFile.bind( files[i] )  ) ;
+		//     }
 
-		}
-	    }
-	    fs.readdir(pathLast, loadFiles())
+		// }
+	 //    }
+	 //    fs.readdir(pathLast, loadFiles())
 	}
 
 
@@ -167,26 +157,29 @@
 	    setInterval( maintenance, 10000 ) ; 
 
 	io.sockets.on('connection', function (socket) {
+		if( ! socket.request.user.logged_in ) return ; 
+
+		
+
 	    //----CONNECTION-------------------------------------------------
 	    if( opt.options.verbose ) {
-		var address = socket.handshake.address;
-		console.log("New connection from " + address.address + ":" + address.port);
+			console.log("New connection from " ,  socket.request.user.nickname ) ; 
 	    }
 
 
 
 	    //----LIST BRAINSTORMINGS---------------------------------------
 	    socket.on("list", function () {
-		if( opt.options.verbose ) console.log("list")
-		if( opt.options.verbose ) if( opt.options.verbose ) console.log (keys(logs)) ;
-		var aa = keys(logs)//io.sockets.manager.rooms).slice(1) ; 
-		socket.emit("active_brainstormings",{brainstorming : aa} ) ;
+			if( opt.options.verbose ) console.log("list")
+			if( opt.options.verbose ) if( opt.options.verbose ) console.log (keys(logs)) ;
+			var aa = keys(logs)//io.sockets.manager.rooms).slice(1) ; 
+			socket.emit("active_brainstormings",{brainstorming : aa} ) ;
 	    })
 
 
 
 	    socket.on("save", function( data )  {
-		saveLogs() 
+			saveLogs() 
 	    })
 	    //ferme un brainstorming (inactive + save ) 
 	    socket.on("close", function( data ) {
@@ -196,44 +189,44 @@
 		}
 	    })
 	    socket.on("load", function( data )  {
-		loadLogs() 
+			loadLogs() 	
 	    })
 	    //----JOIN BRAINSTORMING---------------------------------------
 	    socket.on("join", function (data) {
-		hasChanged = true ; 
-		if( opt.options.verbose ) console.log("join " + data.name)
-		//Client is already in another brainstorming sessions
-		var name2 = getCurrentRoom (socket) ;
-		if (name2) {
-		    console.warn("Please leave brainstorming " + data.name + " before join a new brainstorming");
-		    socket.emit("error",{"message": "Please leave brainstorming " + data.name + " before join a new brainstorming"});
-		    return ; 
-		}
+			hasChanged = true ; 
+			if( opt.options.verbose ) console.log("join " + data.name)
+			//Client is already in another brainstorming sessions
+			var name2 = getCurrentRoom (socket) ;
+			if (name2) {
+			    console.warn("Please leave brainstorming " + data.name + " before join a new brainstorming");
+			    socket.emit("error",{"message": "Please leave brainstorming " + data.name + " before join a new brainstorming"});
+			    return ; 
+			}
 
-		if (typeof data == "Object") 
-		    name = data ;
-		else 
-		    name = data.name ;
-		//Brainstorming sessions should have been created prior to joining
-		console.log( "joining " + name + " from " + util.inspect(data) ) 
-		if (logs.hasOwnProperty(name)) {
-		    logs[name].active = true ; 
-		    socket.join (name) ; 
-		    socket.emit ("title", {data:{ title : logs[name].title
-						  , initT : logs[name].initT
-						  , type : logs[name].type
-						  , deltaT : logs[name].deltaT   }} ) 
-		    socket.emit ("nodes", {data:logs[name].nodes} ) 
-		    socket.emit ("links", {data:logs[name].links} ) 
-		    if( data.user ) 
-			logs[name].users[data.user.id] = data.user
-		    return ; 
-		} else {
-		   
-		    console.warn("Please join existing brainstorming (list ) " +  getCurrentBrainstorming());
-		    socket.emit("error", {message:"Please join existing brainstorming (list)" + getCurrentBrainstorming()});
-		    return ; 
-		}
+			if (typeof data == "Object") 
+			    name = data ;
+			else 
+			    name = data.name ;
+			//Brainstorming sessions should have been created prior to joining
+			console.log( "joining " + name + " from " + util.inspect(data) ) 
+			if (logs.hasOwnProperty(name)) {
+			    logs[name].active = true ; 
+			    socket.join (name) ; 
+			    socket.emit ("title", {data:{ title : logs[name].title
+							  , initT : logs[name].initT
+							  , type : logs[name].type
+							  , deltaT : logs[name].deltaT   }} ) 
+			    socket.emit ("nodes", {data:logs[name].nodes} ) 
+			    socket.emit ("links", {data:logs[name].links} ) 
+			    if( data.user ) 
+				logs[name].users[data.user.id] = data.user
+			    return ; 
+			} else {
+			   
+			    console.warn("Please join existing brainstorming (list ) " +  getCurrentBrainstorming());
+			    socket.emit("error", {message:"Please join existing brainstorming (list)" + getCurrentBrainstorming()});
+			    return ; 
+			}
 	    })
 
 	    socket.on("quit", function () {
@@ -255,7 +248,7 @@
 	    socket.on("user", function ( data ) {
 			hasChanged = true ; 
 
-		console.log( "#### " + data.name + " user : " +  data.info.id ) 
+			console.log( "#### " + data.name + " user : " +  data.info.id ) 
 			
 			//Add information about the user
 			if ( !logs[data.name] ) {
@@ -397,4 +390,8 @@
 
 	}
 
-})(io)
+}
+
+}
+
+module.exports = export1 ; 
