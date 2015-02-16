@@ -315,7 +315,7 @@ var export1 = {
 		    socket.join (data.name) ; 	
 
 
-		    socket.emit("error", {message:  "success "+ data.name + " has been created"}) ;
+		    socket.emit("success", {message:  "success "+ data.name + " has been created"}) ;
 		}
 	    })
 
