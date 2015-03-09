@@ -59,7 +59,7 @@ app.get("/brainstorming", function (req, res) {
     user: req.user, //use this to display user information
     brainstomring: {
     	public : {
-    		title : "Public Brainstorming"
+    		title : "Public Brainstorming",
     		data : [ {title : "First brainstorming", duration : 100, public : true }] 
 
     	}
