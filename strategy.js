@@ -9,6 +9,7 @@ var strategy = new Auth0Strategy({
     //Some tracing info
     //console.log('profile is', profile);
     //save the profile
+    
     return done(null, profile);
   });
 

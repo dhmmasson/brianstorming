@@ -29,7 +29,9 @@ store =  new pgSession({
     conString : process.env.DATABASE_URL,
     tableName : 'session'
   })
-
+process.on('uncaughtException', function (err) {
+    console.log(err);
+}); 
 
 app.set('port', (process.env.PORT || 5000));
 app.set('view engine', 'ejs');  
@@ -47,6 +49,23 @@ server.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 });
 
+app.get("/", function (req, res) {
+  res.render('pages/landing.ejs', {
+    user: req.user, //use this to display user information
+  })
+});
+app.get("/brainstorming", function (req, res) {
+  res.render('pages/landing.ejs', {
+    user: req.user, //use this to display user information
+    brainstomring: {}
+  })
+});
+app.get("/index.html", function (req, res) {
+  res.render('pages/landing.ejs', {
+    user: req.user, //use this to display user information
+    env: process.env
+  })
+});
 // Auth0 callback handler
 app.get('/callback',
   passport.authenticate('auth0'),
@@ -57,8 +76,7 @@ app.get('/callback',
 		    return;
 		  }
 		  console.log( token ) ; 
- 			res.redirect("/test.html?token=" + token);
-	
+ 			res.redirect("/test.html?token=" + token);	
 		});
    
   });
@@ -95,7 +113,7 @@ function onAuthorizeFail(data, message, error, accept){
   // see: http://socket.io/docs/client-api/#socket > error-object
 }
 
-var server = require("./server/app.js").server(io) ;
+var server = require("./ioBrainServer.js").server(io) ;
 
 
 	

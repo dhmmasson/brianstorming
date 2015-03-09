@@ -7,6 +7,7 @@
     "test": "test"
   },
   "dependencies": {
+    "MD5": "^1.2.1",
     "WNdb": "~3.0.1",
     "auth0": "^0.8.0",
     "coffee-script": "~1.6.x",
@@ -17,6 +18,9 @@
     "ejs": "^2.2.4",
     "express": "~4.11.2",
     "express-session": "^1.10.2",
+    "fibers": "^1.0.5",
+    "mongo-sync": "^0.3.2",
+    "mongodb": "^1.4.30",
     "natural": "~0.1.21",
     "node-getopt": "~0.2.3",
     "node-static": "~0.7.1",

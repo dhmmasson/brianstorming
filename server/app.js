@@ -4,9 +4,10 @@ var export1 = {
 	var version = "0.3" ;
 
 	var fs = require('fs')
-	, cp  = require('child_process') ;
+	, cp  = require('child_process')
+	, MongoClient = require('mongodb').MongoClient ;
 	opt = { options : {verbose : true , logs:"dir" }}
-
+ 
 	util = { inspect : function ( obj ) {
 		if( !obj ) return "undefined"
 		if (typeof obj.inspect == "function" ) return obj.inspect() ; 
@@ -14,7 +15,20 @@ var export1 = {
 		return obj ; 
 	    }} 
 
-	if( opt.options.verbose ) ; 
+	var Database = null 
+
+		MongoClient.connect(url, function(err, db) {
+				if( err ) {
+					console.log( err ) ; 
+					return 
+				}
+				console.log("Connected correctly to server");
+				
+				Database = db ; 
+		
+		});
+
+
 
 	var logsPath = opt.options.logs || "" ; 
 	if( logsPath.length > 0 && logsPath[logsPath.length-1] != "/" ) logsPath += "/" ;
