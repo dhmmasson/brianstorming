@@ -122,12 +122,3 @@ function onAuthorizeFail(data, message, error, accept){
 }
 
 var server = require("./ioBrainServer.js").server(io) ;
-
-
-	
-util = { inspect : function ( obj ) {
-	if( !obj ) return "undefined"
-	if (typeof obj.inspect == "function" ) return obj.inspect() ; 
-	if (typeof obj.toString == "function" ) return obj.toString() ; 
-	return obj ; 
-    }} 
