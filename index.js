@@ -57,7 +57,15 @@ app.get("/", function (req, res) {
 app.get("/brainstorming", function (req, res) {
   res.render('pages/landing.ejs', {
     user: req.user, //use this to display user information
-    brainstomring: {}
+    brainstomring: {
+    	public : {
+    		title : "Public Brainstorming"
+    		data : [ {title : "First brainstorming", duration : 100, public : true }] 
+
+    	}
+
+
+    }
   })
 });
 app.get("/index.html", function (req, res) {
