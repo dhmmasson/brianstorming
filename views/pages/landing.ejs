@@ -33,34 +33,20 @@
 
           <div class="inner cover">
             <h1 class="cover-heading">Welcome to Brianstorming</h1>
-            <p class="lead">Brianstorming is a plateform for creating brainstorming! Brian will be available March 12th 2015</p>
+            <p class="lead">Brianstorming is a plateform for creating brainstorming! Brian will be available Monday March 16th 2015! </p>
             <p class="lead">
+            <% include ../partials/login %>    
 
-            <form class="form-signin">
-              
-              <label for="inputEmail" class="sr-only">Email address</label>
-              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-              <label for="inputPassword" class="sr-only">Password</label>
-              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-              <div class="checkbox">
-                
-<div class="container-fluid">
-              <div class="row">
-
-                <button class="btn btn-primary btn-lg col-md-4" type="submit">Sign up</button> 
-                <button class="btn btn-success btn-lg col-md-8" type="submit">log in</button>
-              </div>
-              <hr>
-              <span>Or use <span>
-                <div class="row">
-
-                <button class="btn btn-lg btn-danger  col-md-4" type="submit">Google+</button> 
-                <button class="btn btn-lg btn-primary  col-md-4" type="submit">Facebook</button>
-                <button class="btn btn-lg btn-success  col-md-4" type="submit">Twitter</button>
-              </div>
-</div>
-
-            </form>
+              <button onclick="lock.showSignin({
+              responseType: 'code', 
+              callbackURL: 'http://127.0.0.1:5000/callback',
+              connections: [
+                'facebook',
+                'google-oauth2',
+                'twitter',
+                'Username-Password-Authentication'
+              ]
+            });" class="btn btn-success">Login</button>     
             </p>
           </div>
 
