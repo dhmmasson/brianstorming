@@ -1,0 +1,24 @@
+#visu1Container{
+	position : absolute ;
+	top : 0px ;
+	padding:0px;
+	padding-top: 48px;
+	margin-bottom: 0px;
+
+	bottom: 0px ; 
+}
+
+#visu1Container > div{
+	height: 100%;
+}
+
+#visu1Container .panel-footer {
+	position: absolute ;
+	bottom:  0;
+}
+
+label.invert {
+	color: white ; 
+	font-weight: 400;
+
+}
