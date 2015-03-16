@@ -40,27 +40,45 @@ process.on('uncaughtException', function (err) {
     console.log(err);
 }); 
 
+var forceSsl = function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+        return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    }
+    return next();
+ };
+
 //config web server
 app.set('port', (process.env.PORT || 5000));
 app.set('view engine', 'ejs');  
-app.use(cookieParser());
-app.use(session({
-	 store: store, 
-	 key: 'brianstorming.sid',
-	 secret: process.env['AUTH0_CLIENT_SECRET']}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(multer()); // for parsing multipart/form-data
-app.use(function(req, res, next) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Headers", "Content-Type");
-        res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
-        next();
-    });
+
+
+
+    if (process.env.NODE_ENV === 'production') {
+        app.use(forceSsl);
+    }
+
+    app.use(cookieParser());
+	app.use(session({
+		 store: store, 
+		 key: 'brianstorming.sid',
+		 secret: process.env['AUTH0_CLIENT_SECRET']}));
+	app.use(passport.initialize());
+	app.use(passport.session());
+	app.use(express.static(__dirname + '/public'));
+	app.use(bodyParser.json()); // for parsing application/json
+	app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+	app.use(multer()); // for parsing multipart/form-data
+	app.use(function(req, res, next) {
+	        res.header("Access-Control-Allow-Origin", "*");
+	        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+	        res.header("Access-Control-Allow-Headers", "Content-Type");
+	        res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+	        next();
+	    });
+   // other configurations etc for express go here...
+
+
+
 
 //config auth0
 config = {
@@ -124,7 +142,9 @@ app.get("/about", function (req, res) {
 
 //Home Page
 app.get("/contact", function (req, res) {
+console.log( req.user )
   res.render('pages/contact.ejs', {
+
     	user: req.user 
     ,   config : config 
   })
@@ -142,32 +162,26 @@ app.get("/brainstorming/",
 	  	var token = jwt.sign(profile,  jwt_secret, { expiresInMinutes: 60*5 });
 		res.render( 'pages/visualisation' , { user : req.user, id : req.query.id , token : token,  config : config  })
 	} else {		
-		viewBrainstormings( req, res ) ;
+		viewBrainstormings( req, res, 'pages/brainstorming.ejs' ) ;
 	} 	
 });
-app.get("/brian", 
+
+
+
+app.get("/agents",
 	requiresLogin, 
 	function (req, res) {
-		    var profile = {
-	        userId : "brain:"+md5(req.user.id)
-	    ,   bsId   : req.query.id
-		, 	authorisations : ["segmentation", "wordnet", "info"]
-	  	};
-
-
-
-    // We are sending the profile inside the token
-    	var token = jwt.sign(profile,  jwt_secret, { expiresInMinutes: 60*5 });
-		res.render( 'pages/brian' , { user : req.user, id : req.query.id , token : token,  config : config  })
+		viewBrainstormings( req, res, 'pages/agents.ejs' ) ;
 	}
-)
+
+	)
 
 app.post('/brainsToken', 
 	requiresLogin, 
 	function (req, res) {
 	    var profile = {
-	        userId : md5(req.user.id)
-	    ,   bsId   : req.body.bId 
+	        userId : "brain:"+md5(req.user.id)
+	    ,   bsId   : req.query.id
 		, 	authorisations : ["segmentation", "wordnet", "info"]
 	  	};
     var token = jwt.sign(profile,  jwt_secret, { expiresInMinutes: 60*5 });
@@ -216,19 +230,19 @@ function onAuthorizeFail(data, message, error, accept){
   // this error will be sent to the user as a special error-package
   // see: http://socket.io/docs/client-api/#socket > error-object
 }
-function viewBrainstormings( req, res ) { 
+function viewBrainstormings( req, res , redirect) { 
 	ioBrainServer.Brainstorming.loadBrainstormingLists( 
 		md5(req.user.id)
 		, function() {
 			console.log( "error happend ") ;
-			res.render('pages/brainstorming.ejs', 
+			res.render(redirect, 
 				{
 			    user: req.user, //use this to display user information
 			    brainstormings: {}}
 			)	
 		 }
 		, function( publicBs, createdBs, particBs ) { 	
-			 res.render('pages/brainstorming.ejs', {
+			 res.render(redirect, {
 			    user: req.user, //use this to display user information
 			    brainstormings: {
 			    	public : {

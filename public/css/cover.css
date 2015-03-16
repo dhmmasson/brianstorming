@@ -19,7 +19,11 @@ a:hover {
   border: 1px solid #fff;
 }
 
+.clear-header 
+{
+  margin-top : 48px ;
 
+}
 /*
  * Base structure
  */

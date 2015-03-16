@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <% include ../partials/head %>
+ <link href="css/cover.css" rel="stylesheet">
+ <%if( !user ) { user = { emails : [ {value : "" }], displayName : "" } }%>
+</head>
+
+
+
+<body>
+ <% include ../partials/header %>
+
+ <div class="jumbotron clear-header">
+
+  <form id="mailForm" class="form-horizontal container" role="form" enctype="text/plain" method="get" action="mailto:">
+    <div class="form-group row">
+      <label for="name" class="col-sm-2 control-label">Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="name" name="name" placeholder="First & Last Name" value="<%= user.displayName %>" required >
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="email" class="col-sm-2 control-label">Email</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" value="<%= user.emails[0].value %>" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+     <label for="email" class="col-sm-2 control-label">Subject</label>
+      <div class="dropdown  col-sm-10">
+          <button class="btn btn-default dropdown-toggle  col-sm-12" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+            Comments
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu  col-sm-12" role="menu" aria-labelledby="dropdownMenu1">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Comments</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Request computationnal agent token</a></li>
+          </ul>
+        </div>
+        <input type="text" name="subject" id="reason" val="comments" class="collapse">
+    </div>
+    <div class="form-group row">
+      <label for="message" class="col-sm-2 control-label">Message</label>
+      <div class="col-sm-10">
+        <textarea class="form-control" rows="4" name="body"></textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-10 col-sm-offset-2">
+        <input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-10 col-sm-offset-2">
+        <! Will be used to display an alert to the user>
+      </div>
+    </div>
+  </form>
+
+</div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script>
+      $(function() {
+        $("#reason").val( "comments")
+        $("#mailForm").attr("action", "mailto:"+ "briantormingapp@gmail.com")
+        $(".dropdown-menu li a").click(function(){
+            $(this).parents(".dropdown").find('.btn').text($(this).text());
+            $(this).parents(".dropdown").find('.btn').val($(this).text());
+            $("#reason").val( $(this).text() )
+      
+      });
+ $("#mailForm").submit( function() {
+
+ $("#reason").val(  $("#reason").val().toString() + " from " +  $("#name").val( ).toString())
+
+ }) 
+
+
+      })
+
+    </script>
+  </body>
+  </html>
