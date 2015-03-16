@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+   <% include ../partials/head %>
+    <!-- Custom styles for this template -->
+    <link href="css/index.css" rel="stylesheet">
+  </head>
+  <body>
+
+  
+    <% include ../partials/header %>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron" id="">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title" id="title">Brainstorming session</h2>
+        </div>
+        <div class="panel-body">
+         <ul id="messages" class="list-group row masonry-container"></ul>
+        </div>
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-lg-12">
+            
+              <form class="input-group" action="javascript:validateEntry()" autocomplete="off">
+              <input type="text" class="form-control" placeholder="Type in your ideas" id="text">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button" id="submit">Submit</button>
+              </span>
+              </form>
+            
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+
+      </div>  
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="http://cdn.auth0.com/w2/auth0-4.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.2.2/masonry.pkgd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
+   
+  <script type="text/javascript" src="/js/lexer.js"></script>
+  <script type="text/javascript" src="/js/lexicon.js_"></script>
+  <script type="text/javascript" src="/js/POSTagger.js"></script>
+
+  <script type="text/javascript" src="/js/underscore.inflections.js"></script>
+  <script type="text/javascript">
+      var $container = $('.masonry-container'); 
+        var auth0 = new Auth0({
+        domain:       'brianstorming.auth0.com',
+        clientID:     'FZP0ifjqHEosYfO47yAcdY0tawm1ud6W',
+        callbackURL:  '/test.html',
+        callbackOnLocationHash: true
+      });
+
+      var lexer = new Lexer()
+      ,   tagger = new POSTagger() ;
+
+      var id =  "<%= id %>"
+      ,   token = "<%= token %>"
+      , nbMessage = 0 
+      , nbParticipant = 0
+      , messages = {} 
+      , dictionnaries = {
+          nouns : []
+        , verbs : []
+        , adjectives : []
+        , adverbes : []
+      }
+
+      socket = io("/brains", {  query: 'token=' + token })
+      socket.on( "info" , function( data ) {
+        nbParticipant = data.nbParticipant ;
+      })
+      socket.on("messages", function( data ) {
+        for( var i = 0 ; i < data.length ; i ++ ) {
+          nbMessage++ ;
+          messages[ data[i].id ] = data[i] ; 
+
+        var words = lexer.lex(   data[i].text  );
+        var taggedWords = tagger.tag(words);
+        
+
+
+        var result = "";
+        for (j in taggedWords) {
+          var taggedWord = taggedWords[j];
+          var word = taggedWord[0];
+          var tag = taggedWord[1];
+          
+          if( tag == "NN" || tag == "NNS") {
+            result += " <"+tag+">"
+
+            if( tag == "NNS"  ) {
+              word = _.singularize(word)
+
+            }
+            dictionnaries.nouns.push( word ) ; 
+
+          } else if( tag == "VB" || tag == "VBP" || tag == "VBZ" ) {
+            result += " <"+tag+">"
+
+            if( tag == "VBZ"  ) {
+              word = _.singularize(word)
+              
+            }
+            dictionnaries.verbs.push( word ) ; 
+          } else if( tag == "JJ"  ) {
+            result += " <"+tag+">"
+
+            dictionnaries.adjectives.push( word ) ; 
+          } else if( tag == "RB"  ) {
+            result += " <"+tag+">"
+
+            dictionnaries.adverbes.push( word ) ; 
+          } else {
+            result += " "+word+""
+          }
+
+         
+
+        }
+ console.log( result.slice(1), dictionnaries   )
+
+        } 
+      })
+
+
+      socket.on( "Error" , function( data ) {
+ 
+      })
+
+      socket.emit("join", {brainstorming:id })
+     
+
+    </script>
+  </body>
+</html>
+
+  

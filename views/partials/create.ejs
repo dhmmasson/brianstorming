@@ -1,0 +1,56 @@
+<div id="create" role="tabpanel" class="tab-pane">
+	<div class="panel-heading">
+		<h2> Create a new brainstorming </h2>
+	</div>
+	<div class="panel-body">
+		<form action="/create" method="POST">
+			<div class="form-group row">
+				<div class="col-lg-4">
+					<label for="title">Brainstorming title</label>
+					<input type="text" name="title" class="form-control" id="title" placeholder="Enter title">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="duration">Duration</label>
+				<div class="row">
+					<div class="col-lg-2">
+						<div class="input-group">
+
+							<input name="duration" type="number" class="form-control col-sm-1" id="duration" placeholder="20">
+							<span class="input-group-addon">min </span>
+						</div>
+					</div>
+					<div class="col-lg-2">
+						<div class="input-group">
+							<input name="duration" type="number" class="form-control col-sm-1" id="duration" placeholder="0">
+							<span class="input-group-addon"> sec</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-lg-4">
+					<div class="input-group">
+
+						<div class="input-group-addon btn btn-primary">  
+							<label for="public" class="form-control-static invert"> Make the brainstorming public   </label> 
+						</div>
+						<span class="input-group-addon">
+							<input type="checkbox" id="public" name="public" aria-label="...">
+						</span>
+					</div><!-- /input-group -->
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-lg-4">
+					
+						<button type="submit" class="btn btn-success btn-block">Create brainstorming</button>
+					
+				</div>
+			</div>
+		</form>		
+	</div>
+</div>	
