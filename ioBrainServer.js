@@ -1,6 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 var md5 = require('MD5');
-var url = 'mongodb://localhost:27017/myproject';
+var url = process.env.MONGOLAB_URI
 var db 
 , db_brainstorming =0
 , db_messages = 0
