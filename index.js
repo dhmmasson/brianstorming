@@ -62,19 +62,15 @@ app.use(function(req, res, next) {
         next();
     });
 
-//Config io server 
-
-var clientNamespace = io.of('/clients');
-
-var configAuthentication = {
-  cookieParser: cookieParser,
-  key: 'brianstorming.sid',       // the name of the cookie where express/connect stores its session_id
-  secret:      process.env['AUTH0_CLIENT_SECRET'],    // the session_secret to parse the cookie
-  store:       store,        // we NEED to use a sessionstore. no memorystore please
-  success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
-  fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
+//config auth0
+config = {
+		callbackURL : process.env.AUTH0_CALLBACK_URL
+	, 	clientID : process.env.AUTH0_CLIENT_ID 
+	, 	domain : process.env.AUTH0_DOMAIN 
 }
 
+
+var clientNamespace = io.of('/clients');
 
 
 clientNamespace.use(socketioJwt.authorize({
@@ -92,12 +88,14 @@ server.listen(app.get('port'), function() {
 //Landing 
 app.get("/", function (req, res) {
   res.render('pages/landing.ejs', {
-    user: req.user //use this to display user information
+     user: req.user //use this to display user information
+  ,  config : config 
   })
 });
 app.get("/index.html", function (req, res) {
   res.render('pages/landing.ejs', {
 	user: req.user
+	  ,  config : config 
   })
 });
 
@@ -111,21 +109,24 @@ app.get('/callback',
 //Home Page
 app.get("/home", function (req, res) {
   res.render('pages/index.ejs', {
-    user: req.user, //use this to display user information
+       user: req.user
+    ,  config : config
   })
 });
 
 //Home Page
 app.get("/about", function (req, res) {
   res.render('pages/about.ejs', {
-    user: req.user, //use this to display user information
+       user: req.user
+    ,  config : config 
   })
 });
 
 //Home Page
 app.get("/contact", function (req, res) {
   res.render('pages/contact.ejs', {
-    user: req.user, //use this to display user information
+    	user: req.user 
+    ,   config : config 
   })
 });
 
@@ -139,7 +140,7 @@ app.get("/brainstorming/",
 		, 	authorisations : [""]
 	  	};
 	  	var token = jwt.sign(profile,  jwt_secret, { expiresInMinutes: 60*5 });
-		res.render( 'pages/visualisation' , { user : req.user, id : req.query.id , token : token })
+		res.render( 'pages/visualisation' , { user : req.user, id : req.query.id , token : token,  config : config  })
 	} else {		
 		viewBrainstormings( req, res ) ;
 	} 	
@@ -157,7 +158,7 @@ app.get("/brian",
 
     // We are sending the profile inside the token
     	var token = jwt.sign(profile,  jwt_secret, { expiresInMinutes: 60*5 });
-		res.render( 'pages/brian' , { user : req.user, id : req.query.id , token : token })
+		res.render( 'pages/brian' , { user : req.user, id : req.query.id , token : token,  config : config  })
 	}
 )
 
@@ -169,10 +170,6 @@ app.post('/brainsToken',
 	    ,   bsId   : req.body.bId 
 		, 	authorisations : ["segmentation", "wordnet", "info"]
 	  	};
-
-
-
-    // We are sending the profile inside the token
     var token = jwt.sign(profile,  jwt_secret, { expiresInMinutes: 60*5 });
     res.json({token: token});
 });

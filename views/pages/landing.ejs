@@ -42,7 +42,7 @@
               scope: 'openid'
               }, 
               responseType: 'code', 
-              callbackURL: 'http://127.0.0.1:5000/callback',
+              callbackURL: '<%= config.callbackURL %>',
               connections: [
                 'facebook',
                 'google-oauth2',
