@@ -1,4 +1,5 @@
 <script src="https://d19p4zemcycm7a.cloudfront.net/w2/auth0-widget-2.4.6.min.js"></script>
+<script src="http://cdn.auth0.com/js/lock-6.min.js"></script>
 <script type="text/javascript">
 
   var widget = new Auth0Widget({
@@ -7,6 +8,8 @@
     callbackURL:    'http://127.0.0.1:5000/callback',
     //callbackOnLocationHash: true
   });
+var lock = new Auth0Lock("FZP0ifjqHEosYfO47yAcdY0tawm1ud6W", 'brianstorming.auth0.com');
 
 </script>
-<button onclick="widget.signin()" class="btn btn-success">Login</button>
+
+

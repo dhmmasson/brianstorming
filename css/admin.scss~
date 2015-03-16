@@ -1,6 +1,0 @@
-#error {
-    float : left ; 
-    clear : both ; 
-    margin : auto ;
-    display : table ; 
-}

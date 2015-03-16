@@ -1,1 +1,0 @@
-{"nodes":[],"links":[],"users":[],"groupeId":"4","theme":"session","title":"titre ","type":"DennisVisible","initT":1383237425225,"sentencesCount":0,"wordsCount":0,"active":true}

@@ -1,1 +1,0 @@
-{"nodes":[{"metaData":{"color":"red","timestamp":1383057700660,"authors":"Anonymous","Authors":"brainManager"},"content":"7 echauffement B","id":"80303.1"}],"links":[],"users":[],"title":"7 echauffement B","theme":"sandbox_7.txt","type":"DennisAnonym","sentencesCount":0,"wordsCount":0,"initT":1383057700660,"active":true}

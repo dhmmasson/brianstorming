@@ -13,25 +13,31 @@
         <div id="navbar" class="navbar-collapse collapse">
 
            <ul class="nav navbar-nav navbar-left">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li class=""><a href="/home">Home</a></li>
+            <li>
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Brainstormings <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="Brainstormings">
+
+                    <li role="presentation" class="dropdown-header">Create</li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/brainstorming#create">new brainstorming session</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/agents#create#">new computational assistant</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation" class="dropdown-header">view</li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/brainstorming#public">Public brainstorming</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/brainstorming#self">Created brainstormings</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/brainstorming#participated">Brainstorming I participate</a></li>
+                  </ul>
+
+            </li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>              
+            <% if( ! user ) { %>
+            <li role="presentation" > <a role="menuitem" tabindex="-1" onclick="widget.signin()" href="#" class="btn btn-primary"> Login</a>            </li>
+          <%}%>
           </ul>
-
-
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-
-           
-            <% include ../partials/login %>
-          </form> 
-
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
+<% if( ! user ) { %>
+  <% include ../partials/login %>   
+<%}%>

@@ -1,1 +1,0 @@
-{"nodes":[],"links":[],"users":{"51742":{"username":"Brain:Dennis","sentencesCount":0,"wordsCount":0,"info":{"id":"51742"}}},"groupeId":"7","theme":"session","title":"Comment améliorer la qualité de vie des étudiants sur le campus!","type":"Brain:DennisAnonym","initT":1386686986611,"sentencesCount":0,"wordsCount":0,"active":true}
